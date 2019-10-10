@@ -1,5 +1,5 @@
 <template>
-  <b-alert variant="danger" show>NOOOOOOOOOOO</b-alert>
+  <b-alert variant="danger" show>Bad user credentials</b-alert>
 </template>
 
 <script lang="ts">
