@@ -104,3 +104,5 @@ C:\Users\extmmoreno\source\repos\Locally\ApiRest\bin\System.IdentityModel.Tokens
 C:\Users\extmmoreno\source\repos\Locally\ApiRest\bin\System.Web.Cors.dll
 C:\Users\extmmoreno\source\repos\Locally\ApiRest\bin\System.Web.Http.Cors.dll
 C:\Users\extmmoreno\source\repos\Locally\ApiRest\bin\System.Web.Http.Cors.xml
+C:\Users\extmmoreno\Desktop\oesia\ApiRest\obj\Debug\ApiRest.dll
+C:\Users\extmmoreno\Desktop\oesia\ApiRest\obj\Debug\ApiRest.pdb

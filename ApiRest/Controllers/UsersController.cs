@@ -66,6 +66,7 @@ namespace ApiRest.Controllers
             usercntxt.SaveChanges();
         }
 
+        // POST api/users
         [Route("users")]
         public IHttpActionResult Register([FromBody]User user)
         {

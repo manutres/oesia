@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import Axios from "axios";
 
 @Component
 export default class BadLogin extends Vue {}

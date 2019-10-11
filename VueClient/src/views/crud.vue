@@ -1,11 +1,12 @@
 <template>
   <b-row class="home">
     <b-col cols="4">
-      <UserForm v-on:neweladded="updateItemList" id="form"></UserForm>
+      {{ fullpath }}
+      <UserForm v-on:neweladded="updateItemList"></UserForm>
     </b-col>
     <b-col cols="8">
       <ItemDetails v-bind:item="selectedItem"></ItemDetails>
-      <ItemList v-on:evento="childClicked" :key="rerenderItemList" />
+      <ItemList v-on:evento="childClicked" :key="rerenderItemList" :users="users" />
     </b-col>
   </b-row>
 </template>
@@ -15,6 +16,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import ItemList from "@/components/itemList.vue"; // @ is an alias to /src
 import ItemDetails from "@/components/itemDetails.vue";
 import UserForm from "@/components/userForm.vue";
+import Repository from "@/Repository";
+import User from "@/models/User";
 
 @Component({
   components: {
@@ -24,8 +27,24 @@ import UserForm from "@/components/userForm.vue";
   }
 })
 export default class Crud extends Vue {
-  selectedItem: any = null;
+  //component keys for rerendering
   rerenderItemList: number = 0;
+
+  //component properties
+  selectedItem: any = null;
+  userRepository: Repository<User> = new Repository<User>(
+    "https://localhost:44375/api/users"
+  );
+  users: User[] = [];
+
+  private async fetchUsers(): Promise<void> {
+    this.userRepository
+      .getAll()
+      .then(response => {
+        this.users = response.data;
+      })
+      .catch(error => {});
+  }
 
   private childClicked(value: any) {
     this.selectedItem = value;
@@ -35,7 +54,9 @@ export default class Crud extends Vue {
     this.rerenderItemList++;
   }
 
-  mounted() {}
+  mounted() {
+    this.fetchUsers();
+  }
 }
 </script>
 
