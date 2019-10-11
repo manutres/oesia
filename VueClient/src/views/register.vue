@@ -2,29 +2,29 @@
   <div class="Absolute-Center is-Responsive">
     <b-form @keyup.enter="onSubmit()">
       <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-        <b-form-input id="input-2" v-model="req.Name" required></b-form-input>
+        <b-form-input id="input-2" v-model="registerReq.Name" required></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-3" label="Your Last Name:" label-for="input-3">
-        <b-form-input id="input-3" v-model="req.LastName" required></b-form-input>
+        <b-form-input id="input-3" v-model="registerReq.LastName" required></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-4" label="Your Telf:" label-for="input-4">
-        <b-form-input id="input-4" v-model="req.Telf" required></b-form-input>
+        <b-form-input id="input-4" v-model="registerReq.Telf" required></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-1" label="Your Email:" label-for="input-1">
         <b-form-input
           id="input-1"
           type="email"
-          v-model="req.Email"
+          v-model="registerReq.Email"
           required
           placeholder="Enter Email"
         ></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-5" label="Your Password:" label-for="input-5">
-        <b-form-input id="input-5" type="password" v-model="req.Pass" required></b-form-input>
+        <b-form-input id="input-5" type="password" v-model="registerReq.Pass" required></b-form-input>
       </b-form-group>
       <b-button @click="onSubmit()" variant="danger">Submit</b-button>
     </b-form>
@@ -34,40 +34,20 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Axios from "axios";
-
-interface RegisterReq {
-  Email?: string;
-  Name?: string;
-  LastName?: string;
-  Telf?: number;
-  Pass?: string;
-}
+import RegisterReq from "@/models/RegisterReq";
+import AuthService from "@/AuthService";
 
 @Component
 export default class Register extends Vue {
-  private req: RegisterReq = {
-    Email: undefined,
-    Name: undefined,
-    LastName: undefined,
-    Telf: undefined,
-    Pass: undefined
-  };
-  private response: any = null;
+  private authService: AuthService = new AuthService("https://localhost:44375");
+  private registerReq: RegisterReq = new RegisterReq();
 
-  onSubmit() {
-    Axios.post("https://localhost:44375/register", this.req, this.config).then(
-      resp => {
-        localStorage.setItem("user", resp.data);
-        this.$emit("loged");
-        this.req = {
-          Email: undefined,
-          Name: undefined,
-          LastName: undefined,
-          Telf: undefined,
-          Pass: undefined
-        };
-      }
-    );
+  async onSubmit() {
+    this.authService.register(this.registerReq).then(response => {
+      localStorage.setItem("user", response.data);
+      this.$emit("loged");
+      this.registerReq = new RegisterReq();
+    });
   }
 }
 </script>

@@ -19,11 +19,8 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Axios from "axios";
 import BadLogin from "@/components/badLogin.vue";
-
-interface LoginReq {
-  Email?: string;
-  Pass?: string;
-}
+import LoginReq from "@/models/LoginReq";
+import AuthService from "@/AuthService";
 
 @Component({
   components: {
@@ -31,25 +28,17 @@ interface LoginReq {
   }
 })
 export default class Login extends Vue {
-  private loginUrl = "https://localhost:44375/login";
-  private req: LoginReq = {
-    Email: undefined,
-    Pass: undefined
-  };
-  private response?: any;
-  badLogin: boolean = false;
+  private badLogin: boolean = false;
+  private req: LoginReq = new LoginReq();
+  private authService: AuthService = new AuthService("https://localhost:44375");
 
   onSubmit() {
-    Axios.post(this.loginUrl, this.req)
+    this.authService
+      .login(this.req)
       .then(resp => {
-        if (resp.status === 200) {
-          localStorage.setItem("user", resp.data);
-          this.$emit("loged");
-          this.req = {
-            Email: undefined,
-            Pass: undefined
-          };
-        }
+        localStorage.setItem("user", resp.data);
+        this.$emit("loged");
+        this.req = new LoginReq();
       })
       .catch(error => {
         this.badLogin = !this.badLogin;

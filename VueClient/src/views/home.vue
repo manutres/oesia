@@ -1,8 +1,9 @@
 <template>
   <b-row>
-    <b-col>
-      <h1>Bienvenido a EZCar</h1>
+    <b-col cols="6">
+      <h1>WELCOME</h1>
     </b-col>
+    <b-col cols="6"></b-col>
   </b-row>
 </template>
 

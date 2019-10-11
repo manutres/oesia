@@ -22,7 +22,7 @@
           </b-collapse>
         </b-navbar>
       </div>
-      <router-view @loged="setAuthenticated()" :key="renderViews" />
+      <router-view @loged="setAuthenticated()" :key="renderViews" :item="item" />
     </body>
   </html>
 </b-container>
