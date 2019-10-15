@@ -5,6 +5,7 @@ import Login from "./views/login.vue";
 import Register from "@/views/register.vue";
 import Crud from "@/views/crud.vue";
 import CarScreen from "@/views/carsScreen.vue";
+import LocationsScreen from "@/views/locationsScreen.vue";
 
 Vue.use(Router);
 
@@ -31,9 +32,14 @@ const router = new Router({
       component: Crud
     },
     {
-      path: "/carsscreen",
-      name: "carsscreen",
+      path: "/cars",
+      name: "cars",
       component: CarScreen
+    },
+    {
+      path: "/locations",
+      name: "locations",
+      component: LocationsScreen
     }
   ]
 });
