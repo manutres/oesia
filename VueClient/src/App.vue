@@ -22,7 +22,7 @@
           </b-collapse>
         </b-navbar>
       </div>
-      <router-view @loged="setAuthenticated()" :key="renderViews" :item="item" />
+      <router-view @loged="setAuthenticated()" :key="renderViews" />
     </body>
   </html>
 </b-container>
@@ -37,14 +37,15 @@ export default class App extends Vue {
   private renderViews: number = 0;
 
   public setAuthenticated() {
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("user_token")) {
       this.authenticated = true;
       this.$router.replace({ name: "home" });
     }
   }
 
   public deauthenticate() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("user_id");
     this.authenticated = false;
     this.$router.replace({ name: "login" });
   }
@@ -54,7 +55,7 @@ export default class App extends Vue {
   }
 
   mounted() {
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("user_token")) {
       this.authenticated = true;
       this.$router.replace({ name: "home" });
     }

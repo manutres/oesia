@@ -28,9 +28,6 @@
       </b-form-group>
       <b-button @click="onSubmit()" variant="danger">Submit</b-button>
     </b-form>
-    <b-card class="mt-3" header="Request result">
-      <pre class="m-0">{{ response }}</pre>
-    </b-card>
   </div>
 </template>
 
@@ -49,8 +46,7 @@ export default class UserForm extends Vue {
 
   onSubmit() {
     this.repository.add(this.user).then(response => {
-      localStorage.setItem("postedUser", response.data);
-      this.$emit("neweladded", this.response.data);
+      this.$emit("neweladded");
       this.user = new User();
     });
   }

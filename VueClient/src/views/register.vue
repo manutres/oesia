@@ -43,8 +43,9 @@ export default class Register extends Vue {
   private registerReq: RegisterReq = new RegisterReq();
 
   async onSubmit() {
-    this.authService.register(this.registerReq).then(response => {
-      localStorage.setItem("user", response.data);
+    this.authService.register(this.registerReq).then(resp => {
+      localStorage.setItem("user_token", resp.data.Token);
+      localStorage.setItem("user_id", resp.data.UserInfo.UserId);
       this.$emit("loged");
       this.registerReq = new RegisterReq();
     });

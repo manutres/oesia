@@ -6,7 +6,7 @@ export default class Respository<T> {
 
   constructor(resourceUrl: string) {
     this.requestConfig = {
-      headers: { Authorization: "Bearer " + localStorage.getItem("user") }
+      headers: { Authorization: "Bearer " + localStorage.getItem("user_token") }
     };
     this.resourceUrl = resourceUrl;
   }

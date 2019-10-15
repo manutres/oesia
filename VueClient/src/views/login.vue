@@ -36,7 +36,8 @@ export default class Login extends Vue {
     this.authService
       .login(this.req)
       .then(resp => {
-        localStorage.setItem("user", resp.data);
+        localStorage.setItem("user_token", resp.data.Token);
+        localStorage.setItem("user_id", resp.data.UserInfo.UserId);
         this.$emit("loged");
         this.req = new LoginReq();
       })

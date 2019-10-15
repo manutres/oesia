@@ -4,6 +4,7 @@ import Home from "./views/home.vue";
 import Login from "./views/login.vue";
 import Register from "@/views/register.vue";
 import Crud from "@/views/crud.vue";
+import CarScreen from "@/views/carsScreen.vue";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ const router = new Router({
       path: "/crud",
       name: "crud",
       component: Crud
+    },
+    {
+      path: "/carsscreen",
+      name: "carsscreen",
+      component: CarScreen
     }
   ]
 });
@@ -36,7 +42,7 @@ router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ["/login", "/register"];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("user");
+  const loggedIn = localStorage.getItem("user_token");
 
   if (authRequired && !loggedIn) {
     return next({ name: "login" });

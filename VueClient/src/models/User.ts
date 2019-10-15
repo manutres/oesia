@@ -1,13 +1,13 @@
 import Car from "@/models/Car";
 
 export default class User {
-  private _userId: number;
-  private _name: string;
-  private _lastName: string;
-  private _phone: string;
-  private _email: string;
-  private _pass: string;
-  private _cars: Car[];
+  public UserId: number;
+  public Name: string;
+  public LastName: string;
+  public Phone: string;
+  public Email: string;
+  public Pass: string;
+  public Cars: Car[];
 
   constructor(
     userid?: number,
@@ -18,40 +18,12 @@ export default class User {
     pass?: string,
     cars?: Car[]
   ) {
-    this._userId = userid || 0;
-    this._name = name || "";
-    this._lastName = lastName || "";
-    this._phone = phone || "";
-    this._email = email || "";
-    this._pass = pass || "";
-    this._cars = cars || [];
-  }
-
-  get userId() {
-    return this._userId;
-  }
-
-  get name() {
-    return this._name;
-  }
-
-  get lastName() {
-    return this._lastName;
-  }
-
-  get phone() {
-    return this._phone;
-  }
-
-  get email() {
-    return this._email;
-  }
-
-  get pass() {
-    return this._pass;
-  }
-
-  get cars() {
-    return this._cars;
+    this.UserId = userid || 0;
+    this.Name = name || "";
+    this.LastName = lastName || "";
+    this.Phone = phone || "";
+    this.Email = email || "";
+    this.Pass = pass || "";
+    this.Cars = cars || [];
   }
 }

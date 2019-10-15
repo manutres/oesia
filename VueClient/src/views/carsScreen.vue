@@ -1,15 +1,15 @@
 <template>
   <b-row class="home">
     <b-col cols="4">
-      <UserForm v-on:neweladded="updateItemList"></UserForm>
+      <CarForm v-on:neweladded="updateItemList"></CarForm>
     </b-col>
     <b-col cols="8">
       <ItemDetails v-bind:item="selectedItem"></ItemDetails>
       <ItemList
         v-on:evento="childClicked"
         :key="rerenderItemList"
-        :fields="['UserId', 'Email', 'Pass']"
-        :items="users"
+        :items="cars"
+        :fields="['CarId', 'Brand', 'Model']"
       />
     </b-col>
   </b-row>
@@ -19,33 +19,31 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ItemList from "@/components/itemList.vue"; // @ is an alias to /src
 import ItemDetails from "@/components/itemDetails.vue";
-import UserForm from "@/components/userForm.vue";
-import Repository from "@/Repository";
-import User from "@/models/User";
+import CarForm from "@/components/carForm.vue";
+import CarRepository from "@/CarRepository";
+import Car from "@/models/Car";
 
 @Component({
   components: {
     ItemList,
     ItemDetails,
-    UserForm
+    CarForm
   }
 })
-export default class Crud extends Vue {
+export default class CarsScreen extends Vue {
   //component keys for rerendering
   rerenderItemList: number = 0;
 
   //component properties
   selectedItem: any = null;
-  userRepository: Repository<User> = new Repository<User>(
-    "https://localhost:44375/api/users"
-  );
-  users: User[] = [];
+  cars: Car[] = [];
+  carRepository: CarRepository = new CarRepository("https://localhost:44375");
 
-  private async fetchUsers(): Promise<void> {
-    this.userRepository
-      .getAll()
+  private async fetchCars(): Promise<void> {
+    this.carRepository
+      .getAllUserCars(localStorage.getItem("user_id")!)
       .then(response => {
-        this.users = response.data;
+        this.cars = response.data;
       })
       .catch(error => {});
   }
@@ -56,11 +54,11 @@ export default class Crud extends Vue {
 
   private updateItemList() {
     this.rerenderItemList++;
-    this.fetchUsers();
+    this.fetchCars();
   }
 
   mounted() {
-    this.fetchUsers();
+    this.fetchCars();
   }
 }
 </script>
