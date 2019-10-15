@@ -26,8 +26,13 @@ namespace ApiRest.Controllers
 
             if (CheckUser(req))
             {
-                string token = TokenGenerator.GenerateTokenJwt(req.Email);
-                return Ok(token);
+                LoginResp resp = new LoginResp
+                {
+                    UserInfo = usercntxt.Users.Where(u => u.Email == req.Email).FirstOrDefault(),
+                    Token = TokenGenerator.GenerateTokenJwt(req.Email)
+
+                };
+                return Ok(resp);
             }
             else
             {
@@ -40,10 +45,15 @@ namespace ApiRest.Controllers
         {
             if (!UserExist(user))
             {
+
                 usercntxt.Users.Add(user);
                 usercntxt.SaveChanges();
-                string token = TokenGenerator.GenerateTokenJwt(user.Email);
-                return Ok(token);
+                LoginResp resp = new LoginResp
+                {
+                    UserInfo = user,
+                    Token = TokenGenerator.GenerateTokenJwt(user.Email)
+                };
+                return Ok(resp);
             }
             else
             {

@@ -7,5 +7,7 @@ namespace ApiRest.Models
 {
     public class LoginResp
     {
+        public string Token { get; set; }
+        public User UserInfo { get; set; }
     }
 }

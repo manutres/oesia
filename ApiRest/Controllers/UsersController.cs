@@ -44,6 +44,14 @@ namespace ApiRest.Controllers
                 .Where(c => c.User.UserId == idUser);
         }
 
+        // GET api/users/{id}/locations
+        [Route("users/{idUser:int}/locations")]
+        public IEnumerable<Location> GetLocations(int idUser)
+        {
+            return usercntxt.Locations
+                .Where(c => c.User.UserId == idUser);
+        }
+
         // GET api/users/{id}/cars/{id}
         [Route("users/{idUser:int}/cars/{idCar:int}")]
         public Car GetCar(int idCar)
@@ -58,11 +66,21 @@ namespace ApiRest.Controllers
 
         // POST api/users/{id}/cars
         [Route("users/{idUser:int}/cars")]
-        public void PostUser([FromBody]Car car, int idUser)
+        public void PostCar([FromBody]Car car, int idUser)
         {
             User user = usercntxt.Users.Find(idUser);
             car.User = user;
             usercntxt.Cars.Add(car);
+            usercntxt.SaveChanges();
+        }
+
+        // POST api/users/{id}/locations
+        [Route("users/{idUser:int}/locations")]
+        public void PostLocation([FromBody]Location location, int idUser)
+        {
+            User user = usercntxt.Users.Find(idUser);
+            location.User = user;
+            usercntxt.Locations.Add(location);
             usercntxt.SaveChanges();
         }
 
@@ -74,7 +92,7 @@ namespace ApiRest.Controllers
             {
                 usercntxt.Users.Add(user);
                 usercntxt.SaveChanges();
-                return Created<User>(Request.RequestUri + "/" + user.UserId, user);
+                return Ok(user);
             }
             else
             {
