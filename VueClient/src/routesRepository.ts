@@ -1,6 +1,7 @@
 import Axios, { AxiosRequestConfig } from "axios";
-import Location from "@/models/Location";
-export default class LocationRespository {
+import Location from "@/models/Route";
+
+export default class RoutesRespository {
   private readonly serverUrl: string;
   private readonly resourceUrl: string = "/api/users";
   private readonly requestConfig: AxiosRequestConfig;

@@ -7,10 +7,11 @@ namespace ApiRest.Models
 {
     public class Route
     {
-        public virtual User Creator { get; set; }
-        public virtual Location StartPoint { get; set; }
-        public virtual Location FinishPoint { get; set; }
-        public virtual Car Car { get; set; }
-        public virtual ICollection<User> Users {get; set; }
+        public int RouteId { get; set; }
+        public User Propietary { get; set; }
+        public Location StartPoint { get; set; }
+        public Location FinishPoint { get; set; }
+        public Car Car { get; set; }
+        public ICollection<User> Users {get; set; }
     }
 }

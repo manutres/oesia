@@ -15,8 +15,9 @@ namespace ApiRest.Models
         public string LastName { get; set; }
         public string Telf { get; set; }
         public string Pass { get; set; }
-        public virtual ICollection<Car> Cars { get; set; }
-        public virtual ICollection<Location> MeetingPoint { get; set; }
+        public ICollection<Car> Cars { get; set; }
+        public ICollection<Location> Locations { get; set; }
+        public ICollection<Route> Routes { get; set; }
 
     }
 }
