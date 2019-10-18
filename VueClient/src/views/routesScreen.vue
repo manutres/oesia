@@ -21,7 +21,7 @@ import ItemList from "@/components/itemList.vue"; // @ is an alias to /src
 import ItemDetails from "@/components/itemDetails.vue";
 import LocationForm from "@/components/locationForm.vue";
 import LocationRepository from "@/LocationRepository";
-import Location from "@/models/Location";
+import Location from "@/models/Route";
 
 @Component({
   components: {

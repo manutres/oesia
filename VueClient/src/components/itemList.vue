@@ -24,8 +24,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Axios from "axios";
-import UserService from "@/userService";
-import Repository from "@/Repository";
 
 @Component
 export default class ItemList extends Vue {

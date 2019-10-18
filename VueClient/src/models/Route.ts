@@ -7,17 +7,15 @@ export default class Route {
   public Start: Location;
   public Finish: Location;
   public CarId: number;
-  public Ocupantes: User[];
+  public Ocupantes: number[];
 
   constructor(
     id?: number,
     creatorId?: number,
     start?: Location,
     finish?: Location,
-    lastName?: string,
-    email?: string,
     carId?: number,
-    ocupantes?: User[]
+    ocupantes?: number[]
   ) {
     this.Id = id || 0;
     this.CreatorId = creatorId || 0;

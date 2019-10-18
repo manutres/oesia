@@ -1,8 +1,8 @@
 import Axios, { AxiosRequestConfig } from "axios";
-import Location from "@/models/Location";
-export default class LocationRespository {
+import Route from "@/models/Route";
+export default class RouteRespository {
   private readonly serverUrl: string;
-  private readonly resourceUrl: string = "/api/locations";
+  private readonly resourceUrl: string = "/api/routes";
   private readonly requestConfig: AxiosRequestConfig;
 
   constructor(serverUrl: string) {
@@ -12,16 +12,16 @@ export default class LocationRespository {
     };
   }
 
-  public async getAll(): Promise<Location[]> {
+  public async getAll(): Promise<Route[]> {
     return Axios.get(
       `${this.serverUrl}${this.resourceUrl}`,
       this.requestConfig
     );
   }
 
-  public async getById(locationId: number): Promise<Location> {
+  public async getById(routeId: number): Promise<Route> {
     return Axios.get(
-      `${this.serverUrl}${this.resourceUrl}/${locationId}`,
+      `${this.serverUrl}${this.resourceUrl}/${routeId}`,
       this.requestConfig
     );
   }

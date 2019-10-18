@@ -8,7 +8,7 @@
       <ItemList
         v-on:evento="childClicked"
         :key="rerenderItemList"
-        :fields="['UserId', 'Email', 'Pass']"
+        :fields="['Id', 'Email', 'Pass']"
         :items="users"
       />
     </b-col>
@@ -20,7 +20,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import ItemList from "@/components/itemList.vue"; // @ is an alias to /src
 import ItemDetails from "@/components/itemDetails.vue";
 import UserForm from "@/components/userForm.vue";
-import Repository from "@/Repository";
+import UserRepository from "@/UserRepository";
 import User from "@/models/User";
 
 @Component({
@@ -36,8 +36,8 @@ export default class Crud extends Vue {
 
   //component properties
   selectedItem: any = null;
-  userRepository: Repository<User> = new Repository<User>(
-    "https://localhost:44375/api/users"
+  userRepository: UserRepository = new UserRepository(
+    "https://localhost:44375"
   );
   users: User[] = [];
 

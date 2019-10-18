@@ -2,7 +2,7 @@ import Axios, { AxiosRequestConfig } from "axios";
 import Car from "@/models/Car";
 export default class CarRespository {
   private readonly serverUrl: string;
-  private readonly resourceUrl: string = "/api/users";
+  private readonly resourceUrl: string = "/api/cars";
   private readonly requestConfig: AxiosRequestConfig;
 
   constructor(serverUrl: string) {
@@ -12,17 +12,16 @@ export default class CarRespository {
     };
   }
 
-  public async getAllUserCars(userId: string): Promise<Car[]> {
+  public async getAll(): Promise<Car[]> {
     return Axios.get(
-      `${this.serverUrl}/${this.resourceUrl}/${userId}/cars`,
+      `${this.serverUrl}${this.resourceUrl}`,
       this.requestConfig
     );
   }
 
-  public async addCar(userId: string, car: Car): Promise<Car> {
-    return Axios.post(
-      `${this.serverUrl}/${this.resourceUrl}/${userId}/cars`,
-      car,
+  public async getById(carId: number): Promise<Car> {
+    return Axios.get(
+      `${this.serverUrl}${this.resourceUrl}/${carId}`,
       this.requestConfig
     );
   }

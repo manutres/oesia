@@ -34,13 +34,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Axios from "axios";
-import Repository from "@/Repository";
+import UserRepository from "@/UserRepository";
 import User from "@/models/User";
 
 @Component
 export default class UserForm extends Vue {
   private user: User = new User();
-  private repository: Repository<User> = new Repository<User>(
+  private repository: UserRepository = new UserRepository(
     "https://localhost:44375/api/users"
   );
 

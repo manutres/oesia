@@ -1,5 +1,3 @@
-import Car from "@/models/Car";
-
 export default class User {
   public Id: number;
   public Name: string;
@@ -10,10 +8,7 @@ export default class User {
     userid?: number,
     name?: string,
     lastName?: string,
-    phone?: string,
-    email?: string,
-    pass?: string,
-    cars?: Car[]
+    email?: string
   ) {
     this.Id = userid || 0;
     this.Name = name || "";
