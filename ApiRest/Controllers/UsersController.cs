@@ -22,6 +22,81 @@ namespace ApiRest.Controllers
         /*
          * GET OPERATIONS
          */
+
+        // GET api/locations
+        [HttpGet]
+        [Route("locations")]
+        public IEnumerable<LocationResource> GetLocations()
+        {
+            List<LocationResource> locationResList = new List<LocationResource>();
+            foreach (Location l in usercntxt.Locations.ToList())
+            {
+                LocationResource lres = new LocationResource
+                {
+                    Id = l.LocationId,
+                    Latitude = l.Latitude,
+                    Longitude = l.Longitude
+                    
+                };
+                locationResList.Add(lres);
+            }
+            return locationResList;
+        }
+
+        // GET api/cars
+        [Route("cars")]
+        public IEnumerable<CarResource> GetCars()
+        {
+            List<CarResource> carResList = new List<CarResource>();
+            foreach (Car c in usercntxt.Cars.Include("User").ToList())
+            {
+                CarResource cres = new CarResource
+                {
+                    Id = c.CarId,
+                    Brand = c.Brand,
+                    Model = c.Model,
+                    PropietaryId = c.User.UserId
+
+                };
+                carResList.Add(cres);
+            }
+            return carResList;
+        }
+
+        // GET api/routes
+        [HttpGet]
+        [Route("routes")]
+        public IEnumerable<RouteResource> GetRoutes()
+        {
+            
+            List<RouteResource> routeResList = new List<RouteResource>();
+            foreach (Route r in usercntxt.Routes
+                .Include("Propietary")
+                .Include("Users")
+                .Include("Car")
+                .Include("StartPoint")
+                .Include("FinishPoint")
+                .ToList())
+            {
+                List<int> ocupantesIds = new List<int>();
+                foreach(User u in r.Users)
+                {
+                    ocupantesIds.Add(u.UserId);
+                }
+                RouteResource rres = new RouteResource
+                {
+                    Id = r.RouteId,
+                    CarId = r.Car.CarId,
+                    CreatorId = r.Propietary.UserId,
+                    StartLocationId = r.StartPoint.LocationId,
+                    FinishLocationId = r.FinishPoint.LocationId,
+                    Ocupantes = ocupantesIds,
+
+                };
+                routeResList.Add(rres);
+            }
+            return routeResList;
+        }
         // GET api/users
         [HttpGet]
         [Route("users")]
@@ -108,46 +183,22 @@ namespace ApiRest.Controllers
                 .Include("FinishPoint")
                 .Where(r => r.Propietary.UserId == idUser))
             {
-                List<UserResource> ocupantes = new List<UserResource>();
+                List<int> ocupantes = new List<int>();
                 foreach(User u in route.Users)
                 {
-                    ocupantes.Add(new UserResource
-                    {
-                        Email = u.Email,
-                        Id = u.UserId,
-                        LastName = u.LastName,
-                        Name = u.Name
-                    });
+                    ocupantes.Add(u.UserId);
                 }
                 routesResource.Add(new RouteResource
                 {
                     Id = route.RouteId,
                     CarId = route.Car.CarId,
                     CreatorId = route.Propietary.UserId,
-                    Start = new LocationResource
-                    {
-                        Id = route.StartPoint.LocationId,
-                        Latitude = route.StartPoint.Latitude,
-                        Longitude = route.StartPoint.Longitude
-                    },
-                    Finish = new LocationResource
-                    {
-                        Id = route.FinishPoint.LocationId,
-                        Latitude = route.FinishPoint.Latitude,
-                        Longitude = route.FinishPoint.Longitude
-                    },
+                    StartLocationId = route.StartPoint.LocationId,
+                    FinishLocationId = route.FinishPoint.LocationId,
                     Ocupantes = ocupantes
                 }) ;
             }
             return routesResource;
-        }
-
-        // Este método es para debugueo, en principio no debería existir en la app
-        // GET api/locations
-        [Route("locations")]
-        public IEnumerable<Location> GetAllLocations()
-        {
-            return usercntxt.Locations.ToList();
         }
 
 
@@ -178,10 +229,24 @@ namespace ApiRest.Controllers
 
         // POST api/users/{id}/routes
         [Route("users/{idUser:int}/routes")]
-        public void PostRoute([FromBody]Route route, int idUser)
+        public void PostRoute([FromBody]RouteResource routeRes, int idUser)
         {
-            User user = usercntxt.Users.Find(idUser);
-            route.Propietary = user;
+            User propietary = usercntxt.Users.Find(idUser);
+            List<User> routeUsers = new List<User>();
+            foreach(int uId in routeRes.Ocupantes)
+            {
+                routeUsers.Add(usercntxt.Users.Find(uId));
+            }
+
+            Route route = new Route
+            {
+                Propietary = propietary,
+                Car = usercntxt.Cars.Find(routeRes.CarId),
+                StartPoint = usercntxt.Locations.Find(routeRes.StartLocationId),
+                FinishPoint = usercntxt.Locations.Find(routeRes.FinishLocationId),
+                Users = routeUsers
+            };
+
             usercntxt.Routes.Add(route);
             usercntxt.SaveChanges();
         }

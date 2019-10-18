@@ -9,7 +9,7 @@ namespace ApiRest.Models
         {
             Database.SetInitializer<UserContext>(new UserContextInitializer<UserContext>());
             this.Configuration.LazyLoadingEnabled = false;
-            Database.Initialize(true);
+            //Database.Initialize(true);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
