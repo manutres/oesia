@@ -18,20 +18,20 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Car from "@/models/Car";
-import CarRepository from "@/CarRepository";
+import UserRepository from "@/UserRepository";
 
 @Component
 export default class CarForm extends Vue {
   carInput: Car = new Car();
-  carRepository: CarRepository = new CarRepository("https://localhost:44375");
+  userRepository: UserRepository = new UserRepository(
+    "https://localhost:44375"
+  );
 
   onSubmit() {
-    this.carRepository
-      .addCar(localStorage.getItem("user_id")!, this.carInput)
-      .then(response => {
-        this.$emit("neweladded");
-        this.carInput = new Car();
-      });
+    this.userRepository.addCar(this.carInput).then(response => {
+      this.$emit("neweladded");
+      this.carInput = new Car();
+    });
   }
 }
 </script>

@@ -1,15 +1,15 @@
 <template>
   <b-row class="home">
     <b-col cols="4">
-      <LocationForm v-on:neweladded="updateItemList"></LocationForm>
+      <RouteForm v-on:neweladded="updateItemList"></RouteForm>
     </b-col>
     <b-col cols="8">
-      <ItemDetails v-bind:item="selectedItem"></ItemDetails>
+      <!-- <ItemDetails v-bind:item="selectedItem"></ItemDetails> -->
       <ItemList
         v-on:evento="childClicked"
         :key="rerenderItemList"
-        :items="locations"
-        :fields="['LocationId', 'Latitude', 'Longitude']"
+        :items="routes"
+        :fields="['Id', 'CreatorId', 'CarId', 'StartLocationId', 'FinishLocationId']"
       />
     </b-col>
   </b-row>
@@ -19,33 +19,33 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ItemList from "@/components/itemList.vue"; // @ is an alias to /src
 import ItemDetails from "@/components/itemDetails.vue";
-import LocationForm from "@/components/locationForm.vue";
-import LocationRepository from "@/LocationRepository";
-import Location from "@/models/Route";
+import RouteForm from "@/components/routeForm.vue";
+import UserRepository from "@/UserRepository";
+import Route from "@/models/Route";
 
 @Component({
   components: {
     ItemList,
     ItemDetails,
-    LocationForm
+    RouteForm
   }
 })
-export default class LocationsScreen extends Vue {
+export default class RoutesScreen extends Vue {
   //component keys for rerendering
   rerenderItemList: number = 0;
 
   //component properties
   selectedItem: any = null;
-  locations: Location[] = [];
-  locationRepository: LocationRepository = new LocationRepository(
+  routes: Route[] = [];
+  userRepository: UserRepository = new UserRepository(
     "https://localhost:44375"
   );
 
-  private async fetchLocations(): Promise<void> {
-    this.locationRepository
-      .getAllUserLocations(localStorage.getItem("user_id")!)
+  private async fetchRoutes(): Promise<void> {
+    this.userRepository
+      .getUserRoutes()
       .then(response => {
-        this.locations = response.data;
+        this.routes = response.data;
       })
       .catch(error => {});
   }
@@ -56,11 +56,11 @@ export default class LocationsScreen extends Vue {
 
   private updateItemList() {
     this.rerenderItemList++;
-    this.fetchLocations();
+    this.fetchRoutes();
   }
 
   mounted() {
-    this.fetchLocations();
+    this.fetchRoutes();
   }
 }
 </script>

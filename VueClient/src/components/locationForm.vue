@@ -1,6 +1,10 @@
 <template>
   <div class="m-4">
     <b-form @keyup.enter="onSubmit()">
+      <b-form-group id="input-group-3" label="Location Name:" label-for="input-3">
+        <b-form-input id="input-3" v-model="locationInput.LocationName" required></b-form-input>
+      </b-form-group>
+
       <b-form-group id="input-group-1" label="Latitude:" label-for="input-1">
         <b-form-input id="input-1" v-model="locationInput.Latitude" required></b-form-input>
       </b-form-group>
@@ -18,22 +22,20 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Location from "@/models/Location";
-import LocationRepository from "@/LocationRepository";
+import UserRespository from "../UserRepository";
 
 @Component
 export default class LocationForm extends Vue {
   locationInput: Location = new Location();
-  locationRepository: LocationRepository = new LocationRepository(
+  userRepository: UserRespository = new UserRespository(
     "https://localhost:44375"
   );
 
   onSubmit() {
-    this.locationRepository
-      .addLocation(localStorage.getItem("user_id")!, this.locationInput)
-      .then(response => {
-        this.$emit("neweladded");
-        this.locationInput = new Location();
-      });
+    this.userRepository.addLocation(this.locationInput).then(response => {
+      this.$emit("neweladded");
+      this.locationInput = new Location();
+    });
   }
 }
 </script>

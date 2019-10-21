@@ -4,14 +4,15 @@
       <LocationForm v-on:neweladded="updateItemList"></LocationForm>
     </b-col>
     <b-col cols="8">
-      <ItemDetails v-bind:item="selectedItem"></ItemDetails>
+      <!-- <ItemDetails v-bind:item="selectedItem"></ItemDetails> -->
       <ItemList
         v-on:evento="childClicked"
         :key="rerenderItemList"
         :items="locations"
-        :fields="['LocationId', 'Latitude', 'Longitude']"
+        :fields="['Id', 'LocationName', 'Latitude', 'Longitude']"
       />
     </b-col>
+    <div id="mapid"></div>
   </b-row>
 </template>
 
@@ -20,7 +21,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import ItemList from "@/components/itemList.vue"; // @ is an alias to /src
 import ItemDetails from "@/components/itemDetails.vue";
 import LocationForm from "@/components/locationForm.vue";
-import LocationRepository from "@/LocationRepository";
+import UserRepository from "@/UserRepository";
 import Location from "@/models/Location";
 
 @Component({
@@ -33,17 +34,18 @@ import Location from "@/models/Location";
 export default class LocationsScreen extends Vue {
   //component keys for rerendering
   rerenderItemList: number = 0;
+  var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
   //component properties
   selectedItem: any = null;
   locations: Location[] = [];
-  locationRepository: LocationRepository = new LocationRepository(
+  userRepository: UserRepository = new UserRepository(
     "https://localhost:44375"
   );
 
   private async fetchLocations(): Promise<void> {
-    this.locationRepository
-      .getAllUserLocations(localStorage.getItem("user_id")!)
+    this.userRepository
+      .getUserLocations()
       .then(response => {
         this.locations = response.data;
       })
@@ -66,4 +68,7 @@ export default class LocationsScreen extends Vue {
 </script>
 
 <style scoped>
+#mapid {
+  height: 180px;
+}
 </style>

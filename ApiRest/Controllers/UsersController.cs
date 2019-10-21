@@ -163,6 +163,7 @@ namespace ApiRest.Controllers
                 locationResource.Add(new LocationResource
                 {
                     Id = location.LocationId,
+                    LocationName = location.LocationName,
                     Longitude = location.Longitude,
                     Latitude = location.Latitude,
                 });

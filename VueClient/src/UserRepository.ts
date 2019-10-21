@@ -35,21 +35,59 @@ export default class UserRespository {
     );
   }
 
-  public async getUserCars(userId: number): Promise<Car[]> {
+  public async getUserCars(): Promise<Car[]> {
     return Axios.get(
-      `${this.apiUrl}${this.resourceUrl}/${userId}/cars`,
+      `${this.apiUrl}${this.resourceUrl}/${localStorage.getItem(
+        "user_id"
+      )}/cars`,
       this.requestConfig
     );
   }
-  public async getUserLocations(userId: number): Promise<Location[]> {
-    return Axios.get(
-      `${this.apiUrl}${this.resourceUrl}/${userId}/locations`,
+
+  public async addCar(car: Car) {
+    return Axios.post(
+      `${this.apiUrl}${this.resourceUrl}/${localStorage.getItem(
+        "user_id"
+      )}/cars`,
+      car,
       this.requestConfig
     );
   }
-  public async getUserRoutes(userId: number): Promise<Route[]> {
+
+  public async getUserLocations(): Promise<Location[]> {
     return Axios.get(
-      `${this.apiUrl}${this.resourceUrl}/${userId}/routes`,
+      `${this.apiUrl}${this.resourceUrl}/${localStorage.getItem(
+        "user_id"
+      )}/locations`,
+      this.requestConfig
+    );
+  }
+
+  public async addLocation(location: Location) {
+    return Axios.post(
+      `${this.apiUrl}${this.resourceUrl}/${localStorage.getItem(
+        "user_id"
+      )}/locations`,
+      location,
+      this.requestConfig
+    );
+  }
+
+  public async getUserRoutes(): Promise<Route[]> {
+    return Axios.get(
+      `${this.apiUrl}${this.resourceUrl}/${localStorage.getItem(
+        "user_id"
+      )}/routes`,
+      this.requestConfig
+    );
+  }
+
+  public async addRoute(route: Route) {
+    return Axios.post(
+      `${this.apiUrl}${this.resourceUrl}/${localStorage.getItem(
+        "user_id"
+      )}/routes`,
+      route,
       this.requestConfig
     );
   }

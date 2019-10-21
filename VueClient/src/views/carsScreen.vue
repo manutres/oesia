@@ -4,7 +4,7 @@
       <CarForm v-on:neweladded="updateItemList"></CarForm>
     </b-col>
     <b-col cols="8">
-      <ItemDetails v-bind:item="selectedItem"></ItemDetails>
+      <!-- <ItemDetails v-bind:item="selectedItem"></ItemDetails> -->
       <ItemList
         v-on:evento="childClicked"
         :key="rerenderItemList"
@@ -43,7 +43,7 @@ export default class CarsScreen extends Vue {
 
   private async fetchCars(): Promise<void> {
     this.userRepository
-      .getUserCars(localStorage.getItem("user_id")!)
+      .getUserCars()
       .then(response => {
         this.cars = response.data;
       })
