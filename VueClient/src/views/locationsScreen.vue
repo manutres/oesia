@@ -1,8 +1,8 @@
 <template>
-  <b-row class="home">
+<div>
+<b-row class="home">
     <b-col cols="4">
       <LocationForm :locationInput="locationInput" v-on:neweladded="updateItemList"></LocationForm>
-      <div id="map" class="match-parent"></div>
     </b-col>
     <b-col cols="8">
       <!-- <ItemDetails v-bind:item="selectedItem"></ItemDetails> -->
@@ -14,6 +14,13 @@
       />
     </b-col>
   </b-row>
+  <b-row class="mb-5 justify-content-md-center">
+    <b-col cols="8">
+    <div id="map" class="match-parent"></div>
+    </b-col>
+  </b-row>
+</div>
+  
 </template>
 
 <script lang="ts">
@@ -23,7 +30,6 @@ import ItemDetails from "@/components/itemDetails.vue";
 import LocationForm from "@/components/locationForm.vue";
 import UserRepository from "@/UserRepository";
 import Location from "@/models/Location";
-import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   components: {
@@ -37,9 +43,7 @@ export default class LocationsScreen extends Vue {
   rerenderItemList: number = 0;
 
   map: mapboxgl.Map;
-  style = 'mapbox://styles/mapbox/streets-v11';
-  lat = 38.0211551;
-  lng = -1.1719213;
+  marker: mapboxgl.Marker = new mapboxgl.Marker();
 
   //component properties
   selectedItem: any = null;
@@ -48,7 +52,7 @@ export default class LocationsScreen extends Vue {
     "https://localhost:44375"
   );
   locationInput: Location = new Location();
-  marker: mapboxgl.Marker = new mapboxgl.Marker();
+  
 
 
   private async fetchLocations(): Promise<void> {
@@ -96,6 +100,6 @@ export default class LocationsScreen extends Vue {
 <style scoped>
 .match-parent {
   width: 100%;
-  height: 100%;
+  height: 300px;
 }
 </style>

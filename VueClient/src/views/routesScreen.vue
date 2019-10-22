@@ -9,7 +9,7 @@
         v-on:evento="childClicked"
         :key="rerenderItemList"
         :items="routes"
-        :fields="['Id', 'CreatorId', 'CarId', 'StartLocationId', 'FinishLocationId']"
+        :fields="['CarId', 'StartName', 'FinishName']"
       />
     </b-col>
   </b-row>

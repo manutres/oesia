@@ -15,7 +15,7 @@
         <b-button
           class="pinky"
           href="#"
-          :to="{ name : 'routes' }"
+          :to="{ name : 'ravaibles' }"
           variant="primary"
         >Elección de ruta</b-button>
       </b-card>

@@ -97,7 +97,7 @@ export default class RouteForm extends Vue {
   }
 
   mounted() {
-    this.routeInput.creatorId = localStorage.getItem("user_id");
+    this.routeInput.CreatorId = localStorage.getItem("user_id");
     this.fetchCars();
     this.fetchLocations();
   }
