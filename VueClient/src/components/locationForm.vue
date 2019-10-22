@@ -19,14 +19,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import Location from "@/models/Location";
 import UserRespository from "../UserRepository";
 
 @Component
 export default class LocationForm extends Vue {
-  locationInput: Location = new Location();
+  @Prop() locationInput: Location = new Location();
   userRepository: UserRespository = new UserRespository(
     "https://localhost:44375"
   );
