@@ -214,7 +214,9 @@ namespace ApiRest.Controllers
                     CarId = route.Car.CarId,
                     CreatorId = route.Propietary.UserId,
                     StartLocationId = route.StartPoint.LocationId,
+                    StartName = route.StartPoint.LocationName,
                     FinishLocationId = route.FinishPoint.LocationId,
+                    FinishName = route.FinishPoint.LocationName,
                     Ocupantes = ocupantes
                 }) ;
             }
@@ -294,13 +296,24 @@ namespace ApiRest.Controllers
          */
 
         //PUT api/routes/{id}
-        [Route("routes/{idRoute:int}")]
+        [Route("routes/{idRoute:int}/{ur:int}")]
         [HttpPut]
-        public IHttpActionResult AddUserRoute([FromBody]int ur, int idRoute)
+        public IHttpActionResult AddUserRoute(int idRoute, int ur)
         {
             Route route = usercntxt.Routes.Include("Users").Where(r => r.RouteId == idRoute).FirstOrDefault();
             User userAdded = usercntxt.Users.Find(ur);
             route.Users.Add(userAdded);
+            usercntxt.SaveChanges();
+            return Ok();
+        }
+
+        [Route("routes/{idRoute:int}/{ur:int}")]
+        [HttpDelete]
+        public IHttpActionResult RemoveUserRoute(int idRoute, int ur)
+        {
+            Route route = usercntxt.Routes.Include("Users").Where(r => r.RouteId == idRoute).FirstOrDefault();
+            User userRemoved = usercntxt.Users.Find(ur);
+            route.Users.Remove(userRemoved);
             usercntxt.SaveChanges();
             return Ok();
         }

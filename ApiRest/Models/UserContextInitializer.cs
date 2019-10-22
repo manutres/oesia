@@ -32,11 +32,11 @@ namespace ApiRest.Models
             populatedCars.Add(c5);
             context.Cars.AddRange(populatedCars);
             IList<Location> populatedLocation = new List<Location>();
-            Location l1 = new Location() { LocationName = "Campus Espinardo", Latitude = "38.0211551", Longitude = "-1.1719213", User = u1 };
-            Location l2 = new Location() { LocationName = "Plaza circular", Latitude = "37.9919128", Longitude = "-1.1312388", User = u1 };
-            Location l3 = new Location() { LocationName = "Estacion de autobuses", Latitude = "37.9863614", Longitude = "-1.1403064", User = u1 };
-            Location l4 = new Location() { LocationName = "Estación de tren", Latitude = "37.9751087", Longitude = "-1.1317083", User = u2 };
-            Location l5 = new Location() { LocationName = "Campus la merced", Latitude = "37.9876291", Longitude = "-1.1277452", User = u2 };
+            Location l1 = new Location() { LocationName = "Campus Espinardo Murcia", Latitude = "38.0211551", Longitude = "-1.1719213", User = u1 };
+            Location l2 = new Location() { LocationName = "Plaza circular Murcia", Latitude = "37.9919128", Longitude = "-1.1312388", User = u1 };
+            Location l3 = new Location() { LocationName = "Estacion de autobuses Murcia", Latitude = "37.9863614", Longitude = "-1.1403064", User = u1 };
+            Location l4 = new Location() { LocationName = "Estación de tren Murcia", Latitude = "37.9751087", Longitude = "-1.1317083", User = u2 };
+            Location l5 = new Location() { LocationName = "Campus la merced Murcia", Latitude = "37.9876291", Longitude = "-1.1277452", User = u2 };
             populatedLocation.Add(l1);
             populatedLocation.Add(l2);
             populatedLocation.Add(l3);
