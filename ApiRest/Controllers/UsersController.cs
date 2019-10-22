@@ -35,12 +35,29 @@ namespace ApiRest.Controllers
                 {
                     Id = l.LocationId,
                     Latitude = l.Latitude,
-                    Longitude = l.Longitude
+                    Longitude = l.Longitude,
+                    LocationName = l.LocationName
                     
                 };
                 locationResList.Add(lres);
             }
             return locationResList;
+        }
+
+        [HttpGet]
+        [Route("locations/{idLocation:int}")]
+        public IHttpActionResult GetLocationById(int idLocation)
+        {
+            Location l = usercntxt.Locations.Find(idLocation);
+            LocationResource lres = new LocationResource
+            {
+                Id = l.LocationId,
+                Latitude = l.Latitude,
+                Longitude = l.Longitude,
+                LocationName = l.LocationName
+
+            };
+            return Ok(lres);
         }
 
         // GET api/cars
@@ -89,7 +106,9 @@ namespace ApiRest.Controllers
                     CarId = r.Car.CarId,
                     CreatorId = r.Propietary.UserId,
                     StartLocationId = r.StartPoint.LocationId,
+                    StartName = r.StartPoint.LocationName,
                     FinishLocationId = r.FinishPoint.LocationId,
+                    FinishName = r.FinishPoint.LocationName,
                     Ocupantes = ocupantesIds,
 
                 };
@@ -208,6 +227,8 @@ namespace ApiRest.Controllers
          * POST OPERATIONS
          */
 
+        
+
         // POST api/users/{id}/cars
         [Route("users/{idUser:int}/cars")]
         public void PostCar([FromBody]Car car, int idUser)
@@ -266,6 +287,22 @@ namespace ApiRest.Controllers
             {
                 return Conflict();
             }
+        }
+
+        /*
+         * PUT OPERATIONS 
+         */
+
+        //PUT api/routes/{id}
+        [Route("routes/{idRoute:int}")]
+        [HttpPut]
+        public IHttpActionResult AddUserRoute([FromBody]int ur, int idRoute)
+        {
+            Route route = usercntxt.Routes.Include("Users").Where(r => r.RouteId == idRoute).FirstOrDefault();
+            User userAdded = usercntxt.Users.Find(ur);
+            route.Users.Add(userAdded);
+            usercntxt.SaveChanges();
+            return Ok();
         }
 
         private bool UserExist(User user)

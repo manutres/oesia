@@ -13,5 +13,6 @@ namespace ApiRest.Models
         public Location FinishPoint { get; set; }
         public Car Car { get; set; }
         public ICollection<User> Users {get; set; }
+
     }
 }

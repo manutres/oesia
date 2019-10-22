@@ -16,7 +16,9 @@ export default class RouteRespository {
     return Axios.get(
       `${this.serverUrl}${this.resourceUrl}`,
       this.requestConfig
-    );
+    ).then(response => {
+      return response.data;
+    });
   }
 
   public async getById(routeId: number): Promise<Route> {

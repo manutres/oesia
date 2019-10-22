@@ -16,13 +16,17 @@ export default class LocationRespository {
     return Axios.get(
       `${this.serverUrl}${this.resourceUrl}`,
       this.requestConfig
-    );
+    ).then(response => {
+      return response.data;
+    });
   }
 
   public async getById(locationId: number): Promise<Location> {
     return Axios.get(
       `${this.serverUrl}${this.resourceUrl}/${locationId}`,
       this.requestConfig
-    );
+    ).then(response => {
+      return response.data;
+    });
   }
 }

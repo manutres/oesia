@@ -7,6 +7,7 @@ import Crud from "@/views/crud.vue";
 import CarScreen from "@/views/carsScreen.vue";
 import LocationsScreen from "@/views/locationsScreen.vue";
 import RoutesScreen from "@/views/routesScreen.vue";
+import RoutesAvaibles from "@/views/routesAvaibles.vue";
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ const router = new Router({
       path: "/routes",
       name: "routes",
       component: RoutesScreen
+    },
+    {
+      path: "/ravaibles",
+      name: "ravaibles",
+      component: RoutesAvaibles
     }
   ]
 });

@@ -66,7 +66,7 @@ export default class RouteForm extends Vue {
     locations.forEach(location => {
       this.locationsOptions.push({
         value: location.Id,
-        text: `${location.Latitude} ${location.Longitude}`
+        text: `${location.LocationName}`
       });
     });
   }
@@ -84,7 +84,7 @@ export default class RouteForm extends Vue {
     this.locationRepository
       .getAll()
       .then(response => {
-        this.mapLocationsOptions(response.data);
+        this.mapLocationsOptions(response);
       })
       .catch(error => {});
   }
