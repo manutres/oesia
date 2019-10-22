@@ -1,4 +1,5 @@
 <template>
+<div>
   <b-row>
     <b-col md="6">
       <b-card
@@ -35,7 +36,25 @@
         <b-button class="pinky" :to="{ name : 'routes' }" href="#" variant="primary">Crear ruta</b-button>
       </b-card>
     </b-col>
+  </b-row >
+  <b-row class="m-3 justify-content-md-center">
+    <b-col md="6">
+      <b-card
+        title="Colabora"
+        img-src="https://www.ydesignservices.com/wp-content/uploads/2016/07/Googlemap-600x551.jpg"
+        img-height="300"
+        img-alt="Card image"
+        img-top
+        tag="article"
+        class="m-3 bglel"
+      >
+        <b-card-text>Colabora con nosotros y ayudanos a crear localizaciones. Hará que todo sea mucho más fácil</b-card-text>
+
+        <b-button class="pinky" :to="{ name : 'locations' }" href="#" variant="primary">Crear localizaciones</b-button>
+      </b-card>
+    </b-col>
   </b-row>
+</div>
 </template>
 
 <script lang="ts">
@@ -48,7 +67,8 @@ import RouteRepository from "@/RouteRepository";
   }
 })
 export default class Home extends Vue {
-  mounted() {}
+  mounted() {
+  }
 }
 </script>
 
@@ -60,6 +80,10 @@ export default class Home extends Vue {
 .bgorange {
   border-color: rgb(255, 255, 255);
   background-color: #6ec4db;
+}
+.bglel {
+  border-color: rgb(255, 255, 255);
+  background-color: #ecba6e;
 }
 .bgpink {
   border-color: rgb(255, 255, 255);

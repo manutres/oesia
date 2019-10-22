@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiRest.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace ApiRest.Models
         protected override void Seed(UserContext context)
         {
             IList<User> populatedUsers = new List<User>();
-            User u1 = new User() { Email = "manu@um.es", Name = "Manuel", LastName = "Moreno", Telf = "610840118", Pass = "1234" };
-            User u2 = new User() { Email = "jan@um.es", Name = "Jan", LastName = "Perez", Telf = "676376621", Pass = "1234" };
-            User u3 = new User() { Email = "jesus@um.es", Name = "Jesus", LastName = "Josejoaquin", Telf = "626389835", Pass = "1234" };
+            User u1 = new User() { Email = "manu@um.es", Name = "Manuel", LastName = "Moreno", Telf = "610840118", Pass = EncodingUtils.Sha256_hash("1234") };
+            User u2 = new User() { Email = "jan@um.es", Name = "Jan", LastName = "Perez", Telf = "676376621", Pass = EncodingUtils.Sha256_hash("1234") };
+            User u3 = new User() { Email = "jesus@um.es", Name = "Jesus", LastName = "Josejoaquin", Telf = "626389835", Pass = EncodingUtils.Sha256_hash("1234") };
             populatedUsers.Add(u1);
             populatedUsers.Add(u2);
             populatedUsers.Add(u3);

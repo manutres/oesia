@@ -189,6 +189,7 @@
     <Compile Include="Resources\LocationResource.cs" />
     <Compile Include="Resources\RouteResource.cs" />
     <Compile Include="Resources\UserResource.cs" />
+    <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\TokenGenerator.cs" />
     <Compile Include="Utils\TokenValidationHandler.cs" />
   </ItemGroup>
