@@ -13,6 +13,13 @@ namespace ApiRest.Utils
 {
     internal class TokenValidationHandler : DelegatingHandler
     {
+        /// <summary>
+        /// 1. Get the token from the request
+        /// 2. Creating another token to compare with
+        /// 3. Compare the two tokens
+        /// 3.1 IF OK: store claims into Thread and HTTPContext Iprincipal and request go to next layer
+        /// 3.2 IF DON'T: Unauthoriced code response
+        /// </summary>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             HttpStatusCode statusCode;

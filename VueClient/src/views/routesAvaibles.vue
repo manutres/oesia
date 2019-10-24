@@ -55,6 +55,7 @@ export default class RoutesAvaibles extends Vue {
     this.fetchRoutes();
     this.fetchRoutes();
     this.fetchRoutes();
+    this.fetchRoutes();
   }
 
   inscribeToRoute(route: Route) {
